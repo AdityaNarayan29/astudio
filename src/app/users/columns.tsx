@@ -13,24 +13,39 @@ export type User = {
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: "status",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
- 
-      return <div className="text-right font-medium">{formatted}</div>
-    },
+    accessorKey:"firstName",
+    header:"First Name",
+  },
+  {
+    accessorKey:"lastName",
+    header:"Last Name",
+  },
+  {
+    accessorKey:"maidenName",
+    header:"Maiden Name",
+  },
+  {
+    accessorKey:"age",
+    header:"Age",
+  },
+  {
+    accessorKey:"gender",
+    header:"Gender",
   },
   {
     accessorKey: "email",
     header: "Email",
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "userName",
+    header: "User Name",
+  },
+  {
+    accessorKey: "bloodGroup",
+    header: "Blood Group",
+  },
+  {
+    accessorKey: "eyeColor",
+    header: "Eye Color",
   },
 ]

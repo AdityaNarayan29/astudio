@@ -27,11 +27,14 @@ export function TablePage<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   })
   return (
-    <div className="flex gap-2">
-      <div className="flex"><BreadCrumb name={name}/></div>
-      <div className="font-bold text-lg">{name}</div>
-      <div> <DataTable columns={columns} data={data}/></div>
+  <div className="p-6 space-y-4">
+    <div className="flex mb-2"><BreadCrumb name={name}/></div>
+    <div className="font-bold text-lg">{name}</div>
+    <div className="pt-4 ">
+      <DataTable columns={columns} data={data} />
     </div>
+  </div>
+
   );
 
 }
