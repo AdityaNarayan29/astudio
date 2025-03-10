@@ -27,10 +27,10 @@ export function TablePage<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   })
   return (
-  <div className="p-6 space-y-4">
+  <div className="p-6 space-y-3">
     <div className="flex mb-2"><BreadCrumb name={name}/></div>
-    <div className="font-bold text-lg">{name}</div>
-    <div className="pt-4 ">
+    <div className="font-bold text-2xl">{name}</div>
+    <div >
       <DataTable columns={columns} data={data} />
     </div>
   </div>
