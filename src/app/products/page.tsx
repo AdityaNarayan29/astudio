@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { Product, columns } from "./columns";
+import { Product, columns, filter } from "./columns";
 import { TablePage } from "../components/table-page";
 
 async function getData(): Promise<Product[]> {
   try {
     const response = await axios.get("https://dummyjson.com/products");
     const { products } = response.data;
-    console.log("products data:", products);  
 
     return products.map((product: any) => ({
       id: product.id.toString(),
@@ -29,7 +28,7 @@ export default async function Products() {
 
   return (
     <div className="container mx-auto py-10">
-      <TablePage name="Products" columns={columns} data={data} />
+      <TablePage name="Products" columns={columns} data={data} filter={filter}/>
     </div>
   );
 }

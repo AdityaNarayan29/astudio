@@ -42,3 +42,5 @@ export const columns: ColumnDef<Product>[] = [
     header: "Weight",
   },
 ]
+
+export const filter = {label: "Warranty",name: "warrantyInformation",options: ["1 week warranty","1 month warranty","6 months warranty","1 year warranty","2 year warranty","5 year warranty","Lifetime warranty","No warranty"]};

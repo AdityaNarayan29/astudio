@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { User, columns } from "./columns";
+import { User, columns, filter } from "./columns";
 import { TablePage } from "../components/table-page";
 
 async function getData(): Promise<User[]> {
   try {
     const response = await axios.get("https://dummyjson.com/users");
     const { users } = response.data;
-    console.log("Users data:", users);  
 
     return users.map((user: any) => ({
       id: user.id.toString(),
@@ -32,7 +31,7 @@ export default async function Users() {
 
   return (
     <div className="container mx-auto py-10">
-      <TablePage name="Users" columns={columns} data={data} />
+      <TablePage name="Users" columns={columns} data={data} filter={filter}/>
     </div>
   );
 }

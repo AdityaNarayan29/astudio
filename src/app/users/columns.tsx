@@ -46,3 +46,5 @@ export const columns: ColumnDef<User>[] = [
     header: "Eye Color",
   },
 ]
+
+export const filter = {label:"Gender",name: "gender",options: ["male","female","other"]};

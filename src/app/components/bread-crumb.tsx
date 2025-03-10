@@ -27,7 +27,7 @@ const BreadCrumb: React.FC<BreadCrumbProps> = ({ name }) => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/${name}.toLowercase()`}>{name}</BreadcrumbLink>
+            <BreadcrumbLink href={`/${name.toLowerCase()}`}>{name}</BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

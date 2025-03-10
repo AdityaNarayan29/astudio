@@ -3,8 +3,10 @@
 import { useState } from "react";
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -37,31 +39,34 @@ import {
 } from "@/components/ui/pagination";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filter: { name: string; options: string[], label: string };
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filter
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    []
+  )
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 5,
   });
-
+  
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     state: {
+      pagination,  
       columnFilters,
-      pagination,
     },
     onPaginationChange: (updater) => {
       setPagination((prev) => {
@@ -72,6 +77,8 @@ export function DataTable<TData, TValue>({
         return newPagination;
       });
     },
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
@@ -88,13 +95,13 @@ export function DataTable<TData, TValue>({
               }));
             }}
           >
-            <SelectTrigger className="w-[100px]">
+            <SelectTrigger className="w-[120px]">
               <SelectValue placeholder={String(pagination.pageSize)} />
             </SelectTrigger>
             <SelectContent>
               {[5, 10, 20, 50].map((size) => (
                 <SelectItem key={size} value={String(size)}>
-                  {size} rows
+                  {size} Entries
                 </SelectItem>
               ))}
             </SelectContent>
@@ -107,6 +114,29 @@ export function DataTable<TData, TValue>({
             onChange={(event) => table.setGlobalFilter(event.target.value)}
             className="max-w-sm"
           />
+        </div>
+        <div className="flex items-center py-4">
+            <Select
+              value={String(table.getColumn(filter.name)?.getFilterValue()) ?? ""}
+              onValueChange={(value) => {
+                table.getColumn(filter.name)?.setFilterValue(value);
+              }}
+            >
+              <SelectTrigger className="w-[150px]">
+                <SelectValue>
+                  {table.getColumn(filter.name)?.getFilterValue() !== undefined
+                    ? String(table.getColumn(filter.name)?.getFilterValue())
+                    : filter.label}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {filter.options.map((size: any) => (
+                  <SelectItem key={size} value={size}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
         </div>
       </div>
 
