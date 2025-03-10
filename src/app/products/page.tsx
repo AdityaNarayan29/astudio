@@ -1,10 +1,11 @@
+import axios from 'axios';
 import { Product, columns } from "./columns";
 import { TablePage } from "../components/table-page";
 
 async function getData(): Promise<Product[]> {
   try {
-    const response = await fetch("https://dummyjson.com/products");
-    const { products } = await response.json();
+    const response = await axios.get("https://dummyjson.com/products");
+    const { products } = response.data;
     console.log("products data:", products);  
 
     return products.map((product: any) => ({

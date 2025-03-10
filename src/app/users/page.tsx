@@ -1,10 +1,11 @@
+import axios from 'axios';
 import { User, columns } from "./columns";
 import { TablePage } from "../components/table-page";
 
 async function getData(): Promise<User[]> {
   try {
-    const response = await fetch("https://dummyjson.com/users");
-    const { users } = await response.json();
+    const response = await axios.get("https://dummyjson.com/users");
+    const { users } = response.data;
     console.log("Users data:", users);  
 
     return users.map((user: any) => ({
