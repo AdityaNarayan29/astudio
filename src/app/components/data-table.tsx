@@ -77,15 +77,41 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      {/* Search Input */}
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Search..."
-          value={(table.getState().globalFilter as string) ?? ""}
-          onChange={(event) => table.setGlobalFilter(event.target.value)}
-          className="max-w-sm"
-        />
+
+      <div className="flex gap-2">
+        <div className="flex items-center space-x-2">
+            <Select
+              value={String(pagination.pageSize)}
+              onValueChange={(value) => {
+                setPagination((prev) => ({
+                  ...prev,
+                  pageSize: Number(value),
+                  pageIndex: 0,
+                }));
+              }}
+            >
+              <SelectTrigger className="w-[100px]">
+                <SelectValue placeholder={String(pagination.pageSize)} />
+              </SelectTrigger>
+              <SelectContent>
+                {[5, 10, 20, 50].map((size) => (
+                  <SelectItem key={size} value={String(size)}>
+                    {size} rows
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center py-4">
+            <Input
+              placeholder="Search..."
+              value={(table.getState().globalFilter as string) ?? ""}
+              onChange={(event) => table.setGlobalFilter(event.target.value)}
+              className="max-w-sm"
+            />
+          </div>
       </div>
+      
 
       {/* Data Table */}
       <div className="rounded-md border">
@@ -133,33 +159,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-
-      <div className="flex items-center justify-between py-4">
-        <div className="flex items-center space-x-2">
-          <span className="text-sm">Rows per page:</span>
-          <Select
-            value={String(pagination.pageSize)}
-            onValueChange={(value) => {
-              setPagination((prev) => ({
-                ...prev,
-                pageSize: Number(value),
-                pageIndex: 0,
-              }));
-            }}
-          >
-            <SelectTrigger className="w-[100px]">
-              <SelectValue placeholder={String(pagination.pageSize)} />
-            </SelectTrigger>
-            <SelectContent>
-              {[5, 10, 20, 50].map((size) => (
-                <SelectItem key={size} value={String(size)}>
-                  {size}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
+      <div className="flex items-center justify-center py-4">
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
@@ -174,7 +174,7 @@ export function DataTable<TData, TValue>({
           >
             Previous
           </Button>
-          <span className="text-sm">
+          <span className="text-sm text-center">
             Page {pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <Button

@@ -1,28 +1,22 @@
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Users from "./users/page";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        
-        <div className="flex gap-4 items-center flex-col sm:flex-row"><Users/></div>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-      </footer>
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-[#c0e3e5] to-[#fdc936] text-white text-center p-6">
+      <h1 className="text-5xl font-bold mb-4 text-[#322625]">Welcome to Our Platform</h1>
+      <p className="text-lg mb-6 max-w-2xl text-[#322625]">
+        Experience the future of innovation with our cutting-edge technology and seamless user experience.
+      </p>
+      <div className="flex space-x-4">
+        <Button asChild>
+        <Link href="/users">Users</Link>
+      </Button>
+      <Button asChild>
+        <Link href="/products">Products</Link>
+      </Button>
+      </div>
     </div>
   );
 }
